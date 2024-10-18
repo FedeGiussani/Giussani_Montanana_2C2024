@@ -32,6 +32,12 @@
         },
         {
             "path": "examples/ej_mfrc522"
+        },
+        {
+            "path": "examples/ej_apds9960"
+        },
+        {
+            "path": "examples/proyecto_integrador"
         }
     ],
     "settings": {
