@@ -20,7 +20,7 @@
 #define MSEC				1000	/*!< 1msec = 1000usec */
 #define SEC					1000000	/*!< 1sec = 1000msec */
 #define MIN_US				50	    /*!< minimun delay in usec to use gptimer */
-#define MIN_MS				100	    /*!< minimun delay in msec to use vTaskDelay */
+#define MIN_MS				30	    /*!< minimun delay in msec to use vTaskDelay */
 /*==================[internal data declaration]==============================*/
 SemaphoreHandle_t xDelaySemaphore = NULL;
 /*==================[internal functions declaration]=========================*/

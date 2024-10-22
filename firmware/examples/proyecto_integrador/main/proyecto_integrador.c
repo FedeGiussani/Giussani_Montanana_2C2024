@@ -1,10 +1,7 @@
-/*! @mainpage Template
+/*! @mainpage Linterna operada con gestos
  *
  * @section genDesc General Description
- *
- * This section describes how the program works.
- *
- * <a href="https://drive.google.com/...">Operation Example</a>
+ * Aplicacion que controla una linterna operada mediante gestos.
  *
  * @section hardConn Hardware Connection
  *
@@ -12,14 +9,14 @@
  * |:--------------:|:--------------|
  * | 	PIN_X	 	| 	GPIO_X		|
  *
- *
  * @section changelog Changelog
  *
  * |   Date	    | Description                                    |
  * |:----------:|:-----------------------------------------------|
- * | 12/09/2023 | Document creation		                         |
+ * | 18/10/2024 | Document creation		                         |
  *
- * @author Albano Peñalva (albano.penalva@uner.edu.ar)
+ * @author Giussani Federico (federico.giussani@ingenieria.uner.edu.ar)
+ * 		   Montanana Agustina (agustina.montanana@ingenieria.uner.edu.ar)
  *
  */
 
