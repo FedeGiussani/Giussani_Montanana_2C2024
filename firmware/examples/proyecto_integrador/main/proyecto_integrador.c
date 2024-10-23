@@ -32,15 +32,44 @@
 #include "apds9960.h"
 #include "pwm_mcu.h"
 /*==================[macros and definitions]=================================*/
+/**
+ * @brief Período de configuración del acelerómetro.
+ * 
+ * Definición del período del acelerómetro utilizado en el sistema.
+ */
 #define CONFIG_ACC_PERIOD 50
+
 /*==================[internal data definition]===============================*/
-float frec=1000;
-float Duty_cycle=0.0;
-float percent = 20.0;
+/**
+ * @brief Frecuencia de la señal PWM en Hz.
+ */
+uint16_t frec=1000;
+/**
+ * @brief Ciclo de trabajo actual del PWM (en porcentaje).
+ */
+uint16_t Duty_cycle=0;
+/**
+ * @brief Incremento o decremento del ciclo de trabajo (en porcentaje).
+ */
+uint16_t percent = 20;
+
 /*==================[internal functions declaration]=========================*/
+
+/**
+ * @brief Manejador de la tarea para el procesamiento de gestos.
+ * 
+ * Este manejador se utiliza para notificar la tarea cuando ocurre un evento de gesto.
+ */
 TaskHandle_t gesture_process_event_handle = NULL;
 
-
+/**
+ * @fn pint_intr_callback
+ * @brief Callback de interrupción de la señal PINT.
+ * 
+ * Esta función se ejecuta cuando se detecta una interrupción en el pin PINT. 
+ * Se utiliza para alternar el estado de un LED y notificar a la tarea de procesamiento de gestos.
+ * @return 
+ */
 void pint_intr_callback(void)
 {
 	/* Toggle the state of LED_3 */
@@ -50,7 +79,14 @@ void pint_intr_callback(void)
 }
 
 /**
- * @brief HRM main process task	
+ * @fn gesture_task
+ * @brief Tarea principal para el procesamiento de gestos.
+ * 
+ * Esta tarea se encarga de monitorear continuamente los gestos detectados por el sensor APDS9960 
+ * y ajustar el ciclo de trabajo del PWM o realizar otras acciones según el gesto.
+ * 
+ * @param pvParameter Parámetro de entrada para la tarea (no utilizado).
+ * @return 
  */
 static void gesture_task(void *pvParameter)
 {
@@ -94,6 +130,13 @@ static void gesture_task(void *pvParameter)
 }
 
 /*==================[external functions definition]==========================*/
+/**
+ * @fn app_main
+ * @brief Función principal de la aplicación.
+ * 
+ * Inicializa los periféricos GPIO, LEDs, I2C, el sensor de gestos APDS9960 y el PWM. 
+ * También crea la tarea encargada del procesamiento de gestos.
+ */
 void app_main(void){
 	GPIOInit(GPIO_1, GPIO_INPUT);
 	GPIOInit(GPIO_2, GPIO_OUTPUT);
