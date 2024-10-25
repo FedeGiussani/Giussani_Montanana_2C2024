@@ -31,6 +31,8 @@
 #include "led.h"
 #include "apds9960.h"
 #include "pwm_mcu.h"
+#include "hc_sr04.h"
+#include "timer_mcu.h"
 /*==================[macros and definitions]=================================*/
 /**
  * @brief Período de configuración del acelerómetro.
@@ -38,6 +40,12 @@
  * Definición del período del acelerómetro utilizado en el sistema.
  */
 #define CONFIG_ACC_PERIOD 50
+
+/**
+ * @def REFRESCO_MEDICION
+ * @brief Intervalo de refresco para la tarea de medición de distancia (en ms).
+ */
+#define REFRESCO_MEDICION 1000000
 
 /*==================[internal data definition]===============================*/
 /**
@@ -53,7 +61,10 @@ uint16_t Duty_cycle=0;
  */
 uint16_t percent = 20;
 
-/*==================[internal functions declaration]=========================*/
+/**
+ * @brief Handle para la tarea de medición de distancia.
+ */
+TaskHandle_t Medir_task_handle = NULL;
 
 /**
  * @brief Manejador de la tarea para el procesamiento de gestos.
@@ -61,6 +72,72 @@ uint16_t percent = 20;
  * Este manejador se utiliza para notificar la tarea cuando ocurre un evento de gesto.
  */
 TaskHandle_t gesture_process_event_handle = NULL;
+
+/**
+ * @brief Variable para almacenar la distancia medida por el sensor ultrasónico (en cm).
+ */
+uint16_t lectura_actual = 0;
+
+uint16_t lectura_anterior = 100;
+
+/*==================[internal functions declaration]=========================*/
+/**
+ * @fn void FuncTimerMedir(void *param)
+ * @brief Función llamada por un temporizador para notificar a la tarea de medición de distancia.
+ * 
+ * Envía una notificación a la tarea encargada de realizar la medición de distancia para que se ejecute.
+ * 
+ * @param param Parámetro no utilizado.
+ * @return 
+ */
+void FuncTimerMedir(void *param)
+{
+    vTaskNotifyGiveFromISR(Medir_task_handle, pdFALSE); /* Envía una notificación a la tarea asociada a medir*/
+}
+
+/**
+ * @fn OperarConDistancia
+ * @brief 
+ * 
+ * 
+ * @return 
+ */
+void OperarConDistancia()
+{
+    while (true)
+    {
+
+        ulTaskNotifyTake(pdTRUE, portMAX_DELAY); /*la tarea espera en este punto hasta recibir la notificacion*/
+		// aca se realizan las tareas de encender leds dependiendo la distancia y encender el display
+		
+		lectura_actual=HcSr04ReadDistanceInCentimeters();
+
+		if ((lectura_actual < 30) & (lectura_anterior > 30))
+		{
+			Duty_cycle = Duty_cycle/2;
+		}
+		else if ((lectura_actual < 30) & (lectura_anterior < 30))
+		{
+			break;
+		}
+		else if ((lectura_actual > 30) & (lectura_anterior < 30))
+		{
+			if(Duty_cycle>50)
+			{
+				Duty_cycle=100;
+			}
+			else
+			{
+				Duty_cycle=Duty_cycle*2;
+			}
+		}
+		else if ((lectura_actual > 30) & (lectura_anterior > 30))
+		{
+			break;
+		}
+		lectura_anterior=lectura_actual;
+    }
+}
 
 /**
  * @fn pint_intr_callback
@@ -139,7 +216,17 @@ static void gesture_task(void *pvParameter)
  */
 void app_main(void){
 	GPIOInit(GPIO_1, GPIO_INPUT);
-	GPIOInit(GPIO_2, GPIO_OUTPUT);
+	GPIOInit(GPIO_4, GPIO_OUTPUT);
+	HcSr04Init(GPIO_3, GPIO_2);
+
+	/* Inicialización de timer medicion */
+    timer_config_t timer_medicion = {
+        .timer = TIMER_A,
+        .period = REFRESCO_MEDICION,
+        .func_p = FuncTimerMedir,
+        .param_p = NULL};
+    TimerInit(&timer_medicion);
+
 	GPIOActivInt(GPIO_1, pint_intr_callback, 0, NULL);
 	LedsInit();
 	printf("Init APDS9960 test.\r\n");
@@ -149,8 +236,13 @@ void app_main(void){
 		printf("APDS9960 initialize failed.\r\n");
 	};
 	APDS9960_enableGestureSensor(true);
-	PWMInit(PWM_0, GPIO_2, frec);
+	PWMInit(PWM_0, GPIO_4, frec);
 	printf("Init PWM.\r\n");
+
     xTaskCreate(&gesture_task, "GESTURE LOOP", 4096, NULL, 5, &gesture_process_event_handle);
+	xTaskCreate(&OperarConDistancia, "medir", 512, NULL, 5, &Medir_task_handle);
+
+	/*Inicio del conteo de timers*/
+    TimerStart(timer_medicion.timer);
 }
 /*==================[end of file]============================================*/
