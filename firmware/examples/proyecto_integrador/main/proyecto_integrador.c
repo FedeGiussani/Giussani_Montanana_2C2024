@@ -38,7 +38,7 @@
  * @def REFRESCO_MEDICION
  * @brief Intervalo de refresco para la tarea de medición de distancia (en ms).
  */
-#define REFRESCO_MEDICION 1000000
+#define REFRESCO_MEDICION 100000
 
 /*==================[internal data definition]===============================*/
 /**
@@ -102,32 +102,31 @@ void OperarConDistancia()
     {
 
         ulTaskNotifyTake(pdTRUE, portMAX_DELAY); /*la tarea espera en este punto hasta recibir la notificacion*/
-		// aca se realizan las tareas de encender leds dependiendo la distancia y encender el display
 		
 		lectura_actual=HcSr04ReadDistanceInCentimeters();
+		//printf("lectura actual: %u\r\n", lectura_actual);
+		//printf("lectura anterior: %u\r\n", lectura_anterior);
 
-		if ((lectura_actual < 30) & (lectura_anterior > 30))
+		if ((lectura_actual < 30) && (lectura_anterior > 30))
 		{
+			printf("cercano\r\n");
 			Duty_cycle = Duty_cycle/2;
+			PWMSetDutyCycle(PWM_0, Duty_cycle);
 		}
-		else if ((lectura_actual < 30) & (lectura_anterior < 30))
+		else if ((lectura_actual < 30) && (lectura_anterior < 30))
 		{
-			break;
+            continue;
 		}
-		else if ((lectura_actual > 30) & (lectura_anterior < 30))
+		else if ((lectura_actual > 30) && (lectura_anterior < 30))
 		{
-			if(Duty_cycle>50)
-			{
-				Duty_cycle=100;
-			}
-			else
-			{
-				Duty_cycle=Duty_cycle*2;
-			}
+			printf("lejano\r\n");
+			Duty_cycle = (Duty_cycle > 50) ? 100 : Duty_cycle * 2;
+			PWMSetDutyCycle(PWM_0, Duty_cycle);
+			
 		}
-		else if ((lectura_actual > 30) & (lectura_anterior > 30))
+		else if((lectura_actual > 30) && (lectura_anterior > 30))
 		{
-			break;
+            continue;
 		}
 		lectura_anterior=lectura_actual;
     }
