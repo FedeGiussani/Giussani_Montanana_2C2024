@@ -35,13 +35,6 @@
 #include "timer_mcu.h"
 /*==================[macros and definitions]=================================*/
 /**
- * @brief Período de configuración del acelerómetro.
- * 
- * Definición del período del acelerómetro utilizado en el sistema.
- */
-#define CONFIG_ACC_PERIOD 50
-
-/**
  * @def REFRESCO_MEDICION
  * @brief Intervalo de refresco para la tarea de medición de distancia (en ms).
  */
@@ -90,8 +83,9 @@ uint16_t lectura_anterior = 100;
  * @param param Parámetro no utilizado.
  * @return 
  */
-void FuncTimerMedir(void *param)
+void FuncTimerMedir(void)
 {
+	LedToggle(LED_1);
     vTaskNotifyGiveFromISR(Medir_task_handle, pdFALSE); /* Envía una notificación a la tarea asociada a medir*/
 }
 
@@ -215,8 +209,9 @@ static void gesture_task(void *pvParameter)
  * También crea la tarea encargada del procesamiento de gestos.
  */
 void app_main(void){
+	LedsInit();
 	GPIOInit(GPIO_1, GPIO_INPUT);
-	GPIOInit(GPIO_4, GPIO_OUTPUT);
+	GPIOInit(GPIO_9, GPIO_OUTPUT);
 	HcSr04Init(GPIO_3, GPIO_2);
 
 	/* Inicialización de timer medicion */
@@ -228,7 +223,6 @@ void app_main(void){
     TimerInit(&timer_medicion);
 
 	GPIOActivInt(GPIO_1, pint_intr_callback, 0, NULL);
-	LedsInit();
 	printf("Init APDS9960 test.\r\n");
 	I2C_initialize(100000);
     if(!APDS9960_initialize())
@@ -236,11 +230,11 @@ void app_main(void){
 		printf("APDS9960 initialize failed.\r\n");
 	};
 	APDS9960_enableGestureSensor(true);
-	PWMInit(PWM_0, GPIO_4, frec);
+	PWMInit(PWM_0, GPIO_9, frec);
 	printf("Init PWM.\r\n");
 
     xTaskCreate(&gesture_task, "GESTURE LOOP", 4096, NULL, 5, &gesture_process_event_handle);
-	xTaskCreate(&OperarConDistancia, "medir", 512, NULL, 5, &Medir_task_handle);
+	xTaskCreate(&OperarConDistancia, "medir", 4096, NULL, 5, &Medir_task_handle);
 
 	/*Inicio del conteo de timers*/
     TimerStart(timer_medicion.timer);
