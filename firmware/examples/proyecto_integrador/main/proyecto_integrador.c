@@ -90,6 +90,22 @@ void FuncTimerMedir(void)
 }
 
 /**
+ * @fn pint_intr_callback
+ * @brief Callback de interrupción de la señal PINT.
+ * 
+ * Esta función se ejecuta cuando se detecta una interrupción en el pin PINT. 
+ * Se utiliza para alternar el estado de un LED y notificar a la tarea de procesamiento de gestos.
+ * @return 
+ */
+void pint_intr_callback(void)
+{
+	/* Toggle the state of LED_3 */
+	LedToggle(LED_3);
+	/* Notify the hrm_process_event_task to run */
+	vTaskNotifyGiveFromISR(gesture_process_event_handle, pdFALSE);
+}
+
+/**
  * @fn OperarConDistancia
  * @brief 
  * 
@@ -130,22 +146,6 @@ void OperarConDistancia()
 		}
 		lectura_anterior=lectura_actual;
     }
-}
-
-/**
- * @fn pint_intr_callback
- * @brief Callback de interrupción de la señal PINT.
- * 
- * Esta función se ejecuta cuando se detecta una interrupción en el pin PINT. 
- * Se utiliza para alternar el estado de un LED y notificar a la tarea de procesamiento de gestos.
- * @return 
- */
-void pint_intr_callback(void)
-{
-	/* Toggle the state of LED_3 */
-	LedToggle(LED_3);
-	/* Notify the hrm_process_event_task to run */
-	vTaskNotifyGiveFromISR(gesture_process_event_handle, pdFALSE);
 }
 
 /**
