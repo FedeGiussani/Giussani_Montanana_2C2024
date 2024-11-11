@@ -1,13 +1,25 @@
 /*! @mainpage Linterna operada con gestos
  *
  * @section genDesc General Description
- * Aplicacion que controla una linterna operada mediante gestos.
+ * Aplicacion que controla una linterna operada mediante gestos. Se enciende, se apaga, 
+ * aumenta y disminuye su intensidad segun el gesto detectado por el sensor. También
+ * varía su intensidad de acuerdo a la distancia medida por el sensor de ultrasonido.
  *
  * @section hardConn Hardware Connection
  *
- * |    Peripheral  |   ESP32   	|
+ * |    HC-SR04     |   ESP32   	|
  * |:--------------:|:--------------|
- * | 	PIN_X	 	| 	GPIO_X		|
+ * | 	Vcc 	    |	5V      	|
+ * | 	Echo		| 	GPIO_3		|
+ * | 	Trig	 	| 	GPIO_2		|
+ * | 	Gnd 	    | 	GND     	|
+ * 
+ * | APDS9960(I2C)  |   ESP32   	|
+ * |:--------------:|:--------------|
+ * | 	Vcc 	    |	5V      	|
+ * | 	SDA	    	| 	GPIO_6		|
+ * | 	SCL 	 	| 	GPIO_7		|
+ * | 	Gnd 	    | 	GND     	|
  *
  * @section changelog Changelog
  *
