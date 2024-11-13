@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Proyecto Integrador: Referencia del archivo C:/Repositorios/Giussani_Montanana_2C2024/firmware/examples/proyecto_integrador/main/proyecto_integrador.c</title>
+<link rel="icon" href="icon.ico" type="image/x-icon" />
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="fiuner.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">Proyecto Integrador<span id="projectnumber">&#160;1.0</span>
+   </div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.11.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('proyecto__integrador_8c.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">defines</a> &#124;
+<a href="#func-members">Funciones</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Referencia del archivo proyecto_integrador.c</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
+<code>#include &quot;freertos/task.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="i2c__mcu_8h_source.html">i2c_mcu.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="gpio__mcu_8h_source.html">gpio_mcu.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
+<code>#include &quot;apds9960.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="pwm__mcu_8h_source.html">pwm_mcu.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="hc__sr04_8h_source.html">hc_sr04.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="timer__mcu_8h_source.html">timer_mcu.h</a>&quot;</code><br />
+</div>
+<p><a href="proyecto__integrador_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:a55c44d1988adb48bb8b4731ecd8e9e36" id="r_a55c44d1988adb48bb8b4731ecd8e9e36"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55c44d1988adb48bb8b4731ecd8e9e36">REFRESCO_MEDICION</a>&#160;&#160;&#160;100000</td></tr>
+<tr class="memdesc:a55c44d1988adb48bb8b4731ecd8e9e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intervalo de refresco para la tarea de medición de distancia (en us).  <br /></td></tr>
+<tr class="separator:a55c44d1988adb48bb8b4731ecd8e9e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:af6788cec35e48332140f3807c577174d" id="r_af6788cec35e48332140f3807c577174d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6788cec35e48332140f3807c577174d">FuncTimerMedir</a> (void)</td></tr>
+<tr class="memdesc:af6788cec35e48332140f3807c577174d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Función llamada por un temporizador para notificar a la tarea de medición de distancia.  <br /></td></tr>
+<tr class="separator:af6788cec35e48332140f3807c577174d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a740a6b350a0df7d5d0c20540aa2f0bbd" id="r_a740a6b350a0df7d5d0c20540aa2f0bbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a740a6b350a0df7d5d0c20540aa2f0bbd">pint_intr_callback</a> (void)</td></tr>
+<tr class="memdesc:a740a6b350a0df7d5d0c20540aa2f0bbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback de interrupción de la señal PINT.  <br /></td></tr>
+<tr class="separator:a740a6b350a0df7d5d0c20540aa2f0bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b68b98e54511a921897ab1077e925f1" id="r_a9b68b98e54511a921897ab1077e925f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b68b98e54511a921897ab1077e925f1">OperarConDistancia</a> ()</td></tr>
+<tr class="memdesc:a9b68b98e54511a921897ab1077e925f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tarea principal que se encarga de recibir la medida tomada por el sensor de distancia y operar con ella.  <br /></td></tr>
+<tr class="separator:a9b68b98e54511a921897ab1077e925f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a630544a7f0a2cc40d8a7fefab7e2fe70" id="r_a630544a7f0a2cc40d8a7fefab7e2fe70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a630544a7f0a2cc40d8a7fefab7e2fe70">app_main</a> (void)</td></tr>
+<tr class="memdesc:a630544a7f0a2cc40d8a7fefab7e2fe70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Función principal de la aplicación.  <br /></td></tr>
+<tr class="separator:a630544a7f0a2cc40d8a7fefab7e2fe70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4352ce577e492c42a4b7cdf173af7899" id="r_a4352ce577e492c42a4b7cdf173af7899"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4352ce577e492c42a4b7cdf173af7899">frec</a> =1000</td></tr>
+<tr class="memdesc:a4352ce577e492c42a4b7cdf173af7899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frecuencia de la señal PWM en Hz.  <br /></td></tr>
+<tr class="separator:a4352ce577e492c42a4b7cdf173af7899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a4fcafec3d0a6575f85e24b45752925" id="r_a4a4fcafec3d0a6575f85e24b45752925"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a4fcafec3d0a6575f85e24b45752925">Duty_cycle</a> =0</td></tr>
+<tr class="memdesc:a4a4fcafec3d0a6575f85e24b45752925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ciclo de trabajo actual del PWM (en porcentaje).  <br /></td></tr>
+<tr class="separator:a4a4fcafec3d0a6575f85e24b45752925"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8499fec011a2954568f6d695f7309e6" id="r_ac8499fec011a2954568f6d695f7309e6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8499fec011a2954568f6d695f7309e6">percent</a> = 20</td></tr>
+<tr class="memdesc:ac8499fec011a2954568f6d695f7309e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incremento o decremento del ciclo de trabajo (en porcentaje).  <br /></td></tr>
+<tr class="separator:ac8499fec011a2954568f6d695f7309e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac775c51d06b43d7dcf5458c6864f9577" id="r_ac775c51d06b43d7dcf5458c6864f9577"><td class="memItemLeft" align="right" valign="top">TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac775c51d06b43d7dcf5458c6864f9577">Medir_task_handle</a> = <a class="el" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></td></tr>
+<tr class="memdesc:ac775c51d06b43d7dcf5458c6864f9577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle para la tarea de medición de distancia.  <br /></td></tr>
+<tr class="separator:ac775c51d06b43d7dcf5458c6864f9577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7be3896e64dfa2114a20a1bedf23ef0d" id="r_a7be3896e64dfa2114a20a1bedf23ef0d"><td class="memItemLeft" align="right" valign="top">TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7be3896e64dfa2114a20a1bedf23ef0d">gesture_process_event_handle</a> = <a class="el" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></td></tr>
+<tr class="memdesc:a7be3896e64dfa2114a20a1bedf23ef0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manejador de la tarea para el procesamiento de gestos.  <br /></td></tr>
+<tr class="separator:a7be3896e64dfa2114a20a1bedf23ef0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd085385ed44789f16ef913fe24b38b" id="r_a3cd085385ed44789f16ef913fe24b38b"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3cd085385ed44789f16ef913fe24b38b">lectura_actual</a> = 0</td></tr>
+<tr class="memdesc:a3cd085385ed44789f16ef913fe24b38b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable para almacenar la distancia medida por el sensor ultrasónico (en cm).  <br /></td></tr>
+<tr class="separator:a3cd085385ed44789f16ef913fe24b38b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a568cd0c768d844fb92ea6277e402090f" id="r_a568cd0c768d844fb92ea6277e402090f"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a568cd0c768d844fb92ea6277e402090f">lectura_anterior</a> = 100</td></tr>
+<tr class="memdesc:a568cd0c768d844fb92ea6277e402090f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable para almacenar la ultima lectura de distancia medida por el sensor ultrasónico (en cm).  <br /></td></tr>
+<tr class="separator:a568cd0c768d844fb92ea6277e402090f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentación de «define»</h2>
+<a id="a55c44d1988adb48bb8b4731ecd8e9e36" name="a55c44d1988adb48bb8b4731ecd8e9e36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55c44d1988adb48bb8b4731ecd8e9e36">&#9670;&#160;</a></span>REFRESCO_MEDICION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REFRESCO_MEDICION&#160;&#160;&#160;100000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Intervalo de refresco para la tarea de medición de distancia (en us). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00053">53</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="proyecto__integrador_8c_source.html#l00233">app_main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones</h2>
+<a id="a630544a7f0a2cc40d8a7fefab7e2fe70" name="a630544a7f0a2cc40d8a7fefab7e2fe70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a630544a7f0a2cc40d8a7fefab7e2fe70">&#9670;&#160;</a></span>app_main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void app_main </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Función principal de la aplicación. </p>
+<p>Esta función realiza las siguientes inicializaciones y configuraciones:</p><ul>
+<li>Inicializa los LEDs y los GPIO necesarios para la interacción con periféricos.</li>
+<li>Configura y activa el sensor ultrasónico y el sensor de gestos APDS9960.</li>
+<li>Configura el temporizador <code>timer_medicion</code> para la medición de distancia.</li>
+<li>Inicia el módulo PWM para el control de salida.</li>
+<li>Crea las tareas <code>gesture_task</code> y <code>OperarConDistancia</code> para el procesamiento de gestos y la medición de distancia respectivamente.</li>
+<li>Activa la interrupción de GPIO para el control de eventos.</li>
+</ul>
+<dl class="section return"><dt>Devuelve</dt><dd></dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00233">233</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="proyecto__integrador_8c_source.html#l00059">frec</a>, <a class="el" href="proyecto__integrador_8c_source.html#l00100">FuncTimerMedir()</a>, <a class="el" href="proyecto__integrador_8c_source.html#l00079">gesture_process_event_handle</a>, <a class="el" href="gpio__mcu_8h_source.html#l00053">GPIO_1</a>, <a class="el" href="gpio__mcu_8h_source.html#l00054">GPIO_2</a>, <a class="el" href="gpio__mcu_8h_source.html#l00055">GPIO_3</a>, <a class="el" href="gpio__mcu_8h_source.html#l00061">GPIO_9</a>, <a class="el" href="gpio__mcu_8h_source.html#l00043">GPIO_INPUT</a>, <a class="el" href="gpio__mcu_8h_source.html#l00044">GPIO_OUTPUT</a>, <a class="el" href="gpio__mcu_8c_source.html#l00105">GPIOActivInt()</a>, <a class="el" href="gpio__mcu_8c_source.html#l00067">GPIOInit()</a>, <a class="el" href="hc__sr04_8c_source.html#l00034">HcSr04Init()</a>, <a class="el" href="i2c__mcu_8c_source.html#l00034">I2C_initialize()</a>, <a class="el" href="led_8c_source.html#l00031">LedsInit()</a>, <a class="el" href="proyecto__integrador_8c_source.html#l00072">Medir_task_handle</a>, <a class="el" href="ili9341_8c_source.html#l00019">NULL</a>, <a class="el" href="proyecto__integrador_8c_source.html#l00132">OperarConDistancia()</a>, <a class="el" href="proyecto__integrador_8c_source.html#l00114">pint_intr_callback()</a>, <a class="el" href="pwm__mcu_8h_source.html#l00034">PWM_0</a>, <a class="el" href="pwm__mcu_8c_source.html#l00039">PWMInit()</a>, <a class="el" href="proyecto__integrador_8c_source.html#l00053">REFRESCO_MEDICION</a>, <a class="el" href="timer__mcu_8h_source.html#l00040">timer_config_t::timer</a>, <a class="el" href="timer__mcu_8h_source.html#l00032">TIMER_A</a>, <a class="el" href="timer__mcu_8c_source.html#l00067">TimerInit()</a> y <a class="el" href="timer__mcu_8c_source.html#l00116">TimerStart()</a>.</p>
+
+</div>
+</div>
+<a id="af6788cec35e48332140f3807c577174d" name="af6788cec35e48332140f3807c577174d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6788cec35e48332140f3807c577174d">&#9670;&#160;</a></span>FuncTimerMedir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FuncTimerMedir </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Función llamada por un temporizador para notificar a la tarea de medición de distancia. </p>
+<p>Envía una notificación a la tarea encargada de realizar la medición de distancia para que se ejecute.</p>
+<dl class="section return"><dt>Devuelve</dt><dd></dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00100">100</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="led_8h_source.html#l00034">LED_1</a>, <a class="el" href="led_8c_source.html#l00084">LedToggle()</a> y <a class="el" href="proyecto__integrador_8c_source.html#l00072">Medir_task_handle</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="proyecto__integrador_8c_source.html#l00233">app_main()</a>.</p>
+
+</div>
+</div>
+<a id="a9b68b98e54511a921897ab1077e925f1" name="a9b68b98e54511a921897ab1077e925f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b68b98e54511a921897ab1077e925f1">&#9670;&#160;</a></span>OperarConDistancia()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OperarConDistancia </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tarea principal que se encarga de recibir la medida tomada por el sensor de distancia y operar con ella. </p>
+<p>Si la distancia que toma el sensor es menor a 30 cm y la ultima lectura era mayor a 30 cm cambia el ciclo de trabajo del PWM a la mitad. Si la distancia que toma el sensor es mayor a 30 cm y la ultima lectura era menor a 30 cm cambia el ciclo de trabajo del PWM al doble. Si la distancia actual y la tomada anteriormente esta dentro de la ventana de mas o menos de 30 cm no varía el ciclo de trabajo del PWM.</p>
+<dl class="section return"><dt>Devuelve</dt><dd></dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00132">132</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="proyecto__integrador_8c_source.html#l00063">Duty_cycle</a>, <a class="el" href="hc__sr04_8c_source.html#l00045">HcSr04ReadDistanceInCentimeters()</a>, <a class="el" href="proyecto__integrador_8c_source.html#l00084">lectura_actual</a>, <a class="el" href="proyecto__integrador_8c_source.html#l00089">lectura_anterior</a>, <a class="el" href="pwm__mcu_8h_source.html#l00034">PWM_0</a> y <a class="el" href="pwm__mcu_8c_source.html#l00115">PWMSetDutyCycle()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="proyecto__integrador_8c_source.html#l00233">app_main()</a>.</p>
+
+</div>
+</div>
+<a id="a740a6b350a0df7d5d0c20540aa2f0bbd" name="a740a6b350a0df7d5d0c20540aa2f0bbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a740a6b350a0df7d5d0c20540aa2f0bbd">&#9670;&#160;</a></span>pint_intr_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pint_intr_callback </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback de interrupción de la señal PINT. </p>
+<p>Esta función se ejecuta cuando se detecta una interrupción en el pin PINT. Se utiliza para alternar el estado de un LED y notificar a la tarea de procesamiento de gestos. </p><dl class="section return"><dt>Devuelve</dt><dd></dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00114">114</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="proyecto__integrador_8c_source.html#l00079">gesture_process_event_handle</a>, <a class="el" href="led_8h_source.html#l00032">LED_3</a> y <a class="el" href="led_8c_source.html#l00084">LedToggle()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="proyecto__integrador_8c_source.html#l00233">app_main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de variables</h2>
+<a id="a4a4fcafec3d0a6575f85e24b45752925" name="a4a4fcafec3d0a6575f85e24b45752925"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a4fcafec3d0a6575f85e24b45752925">&#9670;&#160;</a></span>Duty_cycle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t Duty_cycle =0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ciclo de trabajo actual del PWM (en porcentaje). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00063">63</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="proyecto__integrador_8c_source.html#l00132">OperarConDistancia()</a>.</p>
+
+</div>
+</div>
+<a id="a4352ce577e492c42a4b7cdf173af7899" name="a4352ce577e492c42a4b7cdf173af7899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4352ce577e492c42a4b7cdf173af7899">&#9670;&#160;</a></span>frec</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t frec =1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frecuencia de la señal PWM en Hz. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00059">59</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="proyecto__integrador_8c_source.html#l00233">app_main()</a>.</p>
+
+</div>
+</div>
+<a id="a7be3896e64dfa2114a20a1bedf23ef0d" name="a7be3896e64dfa2114a20a1bedf23ef0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7be3896e64dfa2114a20a1bedf23ef0d">&#9670;&#160;</a></span>gesture_process_event_handle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TaskHandle_t gesture_process_event_handle = <a class="el" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Manejador de la tarea para el procesamiento de gestos. </p>
+<p>Este manejador se utiliza para notificar la tarea cuando ocurre un evento de gesto. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00079">79</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="proyecto__integrador_8c_source.html#l00233">app_main()</a> y <a class="el" href="proyecto__integrador_8c_source.html#l00114">pint_intr_callback()</a>.</p>
+
+</div>
+</div>
+<a id="a3cd085385ed44789f16ef913fe24b38b" name="a3cd085385ed44789f16ef913fe24b38b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cd085385ed44789f16ef913fe24b38b">&#9670;&#160;</a></span>lectura_actual</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t lectura_actual = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Variable para almacenar la distancia medida por el sensor ultrasónico (en cm). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00084">84</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="proyecto__integrador_8c_source.html#l00132">OperarConDistancia()</a>.</p>
+
+</div>
+</div>
+<a id="a568cd0c768d844fb92ea6277e402090f" name="a568cd0c768d844fb92ea6277e402090f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a568cd0c768d844fb92ea6277e402090f">&#9670;&#160;</a></span>lectura_anterior</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t lectura_anterior = 100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Variable para almacenar la ultima lectura de distancia medida por el sensor ultrasónico (en cm). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00089">89</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="proyecto__integrador_8c_source.html#l00132">OperarConDistancia()</a>.</p>
+
+</div>
+</div>
+<a id="ac775c51d06b43d7dcf5458c6864f9577" name="ac775c51d06b43d7dcf5458c6864f9577"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac775c51d06b43d7dcf5458c6864f9577">&#9670;&#160;</a></span>Medir_task_handle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TaskHandle_t Medir_task_handle = <a class="el" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handle para la tarea de medición de distancia. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00072">72</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="proyecto__integrador_8c_source.html#l00233">app_main()</a> y <a class="el" href="proyecto__integrador_8c_source.html#l00100">FuncTimerMedir()</a>.</p>
+
+</div>
+</div>
+<a id="ac8499fec011a2954568f6d695f7309e6" name="ac8499fec011a2954568f6d695f7309e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8499fec011a2954568f6d695f7309e6">&#9670;&#160;</a></span>percent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t percent = 20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Incremento o decremento del ciclo de trabajo (en porcentaje). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="proyecto__integrador_8c_source.html#l00067">67</a> del archivo <a class="el" href="proyecto__integrador_8c_source.html">proyecto_integrador.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_2595ab717861c1c3dc47c796eb31084f.html">Giussani_Montanana_2C2024</a></li><li class="navelem"><a class="el" href="dir_164e2b28638ad8445574a27badf9aa37.html">firmware</a></li><li class="navelem"><a class="el" href="dir_bf8fece84fa521f8ed6dab8c70522c0d.html">examples</a></li><li class="navelem"><a class="el" href="dir_496c0853a5dc461058423e53232ee51a.html">proyecto_integrador</a></li><li class="navelem"><a class="el" href="dir_b5c2ca18e2f3fdd62efebbc5b619040b.html">main</a></li><li class="navelem"><a class="el" href="proyecto__integrador_8c.html">proyecto_integrador.c</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+  </ul>
+</div>
+</body>
+</html>

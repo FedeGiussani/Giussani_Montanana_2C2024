@@ -1,7 +1,7 @@
 /*! @mainpage Linterna operada con gestos
  *
  * @section genDesc General Description
- * Aplicacion que controla una linterna operada mediante gestos. Se enciende, se apaga, 
+ * Aplicacion que controla una linterna operada mediante gestos y distancia. Se enciende, se apaga, 
  * aumenta y disminuye su intensidad segun el gesto detectado por el sensor. También
  * varía su intensidad de acuerdo a la distancia medida por el sensor de ultrasonido.
  *
@@ -48,7 +48,7 @@
 /*==================[macros and definitions]=================================*/
 /**
  * @def REFRESCO_MEDICION
- * @brief Intervalo de refresco para la tarea de medición de distancia (en ms).
+ * @brief Intervalo de refresco para la tarea de medición de distancia (en us).
  */
 #define REFRESCO_MEDICION 100000
 
@@ -83,16 +83,18 @@ TaskHandle_t gesture_process_event_handle = NULL;
  */
 uint16_t lectura_actual = 0;
 
+/**
+ * @brief Variable para almacenar la ultima lectura de distancia medida por el sensor ultrasónico (en cm).
+ */
 uint16_t lectura_anterior = 100;
 
 /*==================[internal functions declaration]=========================*/
 /**
- * @fn void FuncTimerMedir(void *param)
+ * @fn void FuncTimerMedir(void)
  * @brief Función llamada por un temporizador para notificar a la tarea de medición de distancia.
  * 
  * Envía una notificación a la tarea encargada de realizar la medición de distancia para que se ejecute.
  * 
- * @param param Parámetro no utilizado.
  * @return 
  */
 void FuncTimerMedir(void)
@@ -118,9 +120,12 @@ void pint_intr_callback(void)
 }
 
 /**
- * @fn OperarConDistancia
- * @brief 
+ * @fn OperarConDistancia()
+ * @brief Tarea principal que se encarga de recibir la medida tomada por el sensor de distancia y operar con ella.
  * 
+ * Si la distancia que toma el sensor es menor a 30 cm y la ultima lectura era mayor a 30 cm cambia el ciclo de trabajo del PWM a la mitad.
+ * Si la distancia que toma el sensor es mayor a 30 cm y la ultima lectura era menor a 30 cm cambia el ciclo de trabajo del PWM al doble.
+ * Si la distancia actual y la tomada anteriormente esta dentro de la ventana de mas o menos de 30 cm no varía el ciclo de trabajo del PWM.
  * 
  * @return 
  */
@@ -132,8 +137,6 @@ void OperarConDistancia()
         ulTaskNotifyTake(pdTRUE, portMAX_DELAY); /*la tarea espera en este punto hasta recibir la notificacion*/
 		
 		lectura_actual=HcSr04ReadDistanceInCentimeters();
-		//printf("lectura actual: %u\r\n", lectura_actual);
-		//printf("lectura anterior: %u\r\n", lectura_anterior);
 
 		if ((lectura_actual < 30) && (lectura_anterior > 30))
 		{
@@ -165,7 +168,7 @@ void OperarConDistancia()
  * @brief Tarea principal para el procesamiento de gestos.
  * 
  * Esta tarea se encarga de monitorear continuamente los gestos detectados por el sensor APDS9960 
- * y ajustar el ciclo de trabajo del PWM o realizar otras acciones según el gesto.
+ * y ajustar el ciclo de trabajo del PWM.
  * 
  * @param pvParameter Parámetro de entrada para la tarea (no utilizado).
  * @return 
@@ -213,41 +216,59 @@ static void gesture_task(void *pvParameter)
 
 /*==================[external functions definition]==========================*/
 /**
- * @fn app_main
+ * @fn app_main(void)
  * @brief Función principal de la aplicación.
  * 
- * Inicializa los periféricos GPIO, LEDs, I2C, el sensor de gestos APDS9960 y el PWM. 
- * También crea la tarea encargada del procesamiento de gestos.
+ * Esta función realiza las siguientes inicializaciones y configuraciones:
+ * - Inicializa los LEDs y los GPIO necesarios para la interacción con periféricos.
+ * - Configura y activa el sensor ultrasónico y el sensor de gestos APDS9960.
+ * - Configura el temporizador `timer_medicion` para la medición de distancia.
+ * - Inicia el módulo PWM para el control de salida.
+ * - Crea las tareas `gesture_task` y `OperarConDistancia` para el procesamiento
+ *   de gestos y la medición de distancia respectivamente.
+ * - Activa la interrupción de GPIO para el control de eventos.
+ *
+ * @return 
  */
-void app_main(void){
-	LedsInit();
-	GPIOInit(GPIO_1, GPIO_INPUT);
-	GPIOInit(GPIO_9, GPIO_OUTPUT);
-	HcSr04Init(GPIO_3, GPIO_2);
+void app_main(void) {
+    // Inicialización de LEDs y GPIO
+    LedsInit();
+    GPIOInit(GPIO_1, GPIO_INPUT); // Configuración de GPIO_1 como entrada.
+    GPIOInit(GPIO_9, GPIO_OUTPUT); // Configuración de GPIO_9 como salida.
+    
+    // Inicialización del sensor ultrasónico
+    HcSr04Init(GPIO_3, GPIO_2);
 
-	/* Inicialización de timer medicion */
+    //Configuración del temporizador para la medición de distancia
     timer_config_t timer_medicion = {
-        .timer = TIMER_A,
-        .period = REFRESCO_MEDICION,
-        .func_p = FuncTimerMedir,
-        .param_p = NULL};
+        .timer = TIMER_A, // Temporizador seleccionado.
+        .period = REFRESCO_MEDICION, // Período de refresco de medición.
+        .func_p = FuncTimerMedir, // Función callback para el temporizador.
+        .param_p = NULL // Parámetro opcional para la función callback.
+    };
     TimerInit(&timer_medicion);
 
-	GPIOActivInt(GPIO_1, pint_intr_callback, 0, NULL);
-	printf("Init APDS9960 test.\r\n");
-	I2C_initialize(100000);
-    if(!APDS9960_initialize())
+    // Configuración de interrupción para GPIO
+    GPIOActivInt(GPIO_1, pint_intr_callback, 0, NULL);
+    printf("Init APDS9960 test.\r\n");
+
+    // Inicialización de I2C y sensor APDS9960
+    I2C_initialize(100000); // Inicialización de I2C a 100 kHz.
+    if (!APDS9960_initialize()) 
 	{
-		printf("APDS9960 initialize failed.\r\n");
-	};
-	APDS9960_enableGestureSensor(true);
-	PWMInit(PWM_0, GPIO_9, frec);
-	printf("Init PWM.\r\n");
+		printf("APDS9960 initialize failed.\r\n"); // Error de inicialización del sensor APDS9960.
+    }
+    APDS9960_enableGestureSensor(true); // Habilita el sensor de gestos APDS9960.
+    
+    // Configuración de PWM en GPIO_9
+    PWMInit(PWM_0, GPIO_9, frec); // Inicialización del PWM con frecuencia especificada en `frec`. 
+    printf("Init PWM.\r\n");
 
-    xTaskCreate(&gesture_task, "GESTURE LOOP", 4096, NULL, 5, &gesture_process_event_handle);
-	xTaskCreate(&OperarConDistancia, "medir", 4096, NULL, 5, &Medir_task_handle);
+    // Creación de tareas en FreeRTOS
+    xTaskCreate(&gesture_task, "GESTURE LOOP", 4096, NULL, 5, &gesture_process_event_handle); // Tarea para el procesamiento de gestos. 
+    xTaskCreate(&OperarConDistancia, "medir", 4096, NULL, 5, &Medir_task_handle); // Tarea para la medición de distancia. 
 
-	/*Inicio del conteo de timers*/
-    TimerStart(timer_medicion.timer);
+    // Inicio del conteo de temporizadores
+    TimerStart(timer_medicion.timer); // Inicia el temporizador para la medición.
 }
 /*==================[end of file]============================================*/
